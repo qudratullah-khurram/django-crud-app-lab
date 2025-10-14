@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}Car Detail{% endblock %}
+
+{% block content %}
+  <h1>{{ object.make }} {{ object.model }} ({{ object.year }})</h1>
+  <p>{{ object.description }}</p>
+  <a href="{% url 'car_update' object.pk %}">Edit</a> |
+  <a href="{% url 'car_delete' object.pk %}">Delete</a>
+{% endblock %}
