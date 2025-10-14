@@ -1,10 +1,35 @@
-{% extends 'base.html' %}
 
-{% block title %}Car Detail{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ object.make }} {{ object.model }}{% endblock %}
 
 {% block content %}
   <h1>{{ object.make }} {{ object.model }} ({{ object.year }})</h1>
-  <p>{{ object.description }}</p>
-  <a href="{% url 'car_update' object.pk %}">Edit</a> |
-  <a href="{% url 'car_delete' object.pk %}">Delete</a>
+  <p><strong>Description:</strong> {{ object.description }}</p>
+
+  <a href="{% url 'car_update' object.pk %}">Edit Car</a> |
+  <a href="{% url 'car_delete' object.pk %}">Delete Car</a>
+
+  <hr>
+
+  <h2>Service Records</h2>
+
+  {% if object.services.all %}
+    <ul>
+      {% for service in object.services.all %}
+        <li>
+          <a href="{% url 'service_detail' service.pk %}">
+            {{ service.date }} - ${{ service.cost }}
+          </a>
+          &nbsp;
+          (<a href="{% url 'service_update' service.pk %}">Edit</a> |
+           <a href="{% url 'service_delete' service.pk %}">Delete</a>)
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No service records for this car yet.</p>
+  {% endif %}
+
+  <a href="{% url 'service_create' %}?car={{ object.pk }}">+ Add Service Record</a>
 {% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Service Records{% endblock %}
+{% block content %}
+  <h1>All Service Records</h1>
+  <a href="{% url 'service_create' %}">Add New Service</a>
+  <ul>
+    {% for service in services %}
+      <li>
+        <a href="{% url 'service_detail' service.pk %}">
+          {{ service.car }} - {{ service.date }} (${{ service.cost }})
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

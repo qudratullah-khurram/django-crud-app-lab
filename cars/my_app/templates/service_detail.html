@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block title %}Service Detail{% endblock %} {% block
+content %}
+<h2>Service for: {{ object.car }}</h2>
+<p><strong>Date:</strong> {{ object.date }}</p>
+<p><strong>Description:</strong> {{ object.description }}</p>
+<p><strong>Cost:</strong> ${{ object.cost }}</p>
+
+<a href="{% url 'service_update' object.pk %}">Edit</a> |
+<a href="{% url 'service_delete' object.pk %}">Delete</a>
+{% endblock %}

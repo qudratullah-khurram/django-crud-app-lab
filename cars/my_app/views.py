@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Car
+from .models import Car, ServiceRecord
+
 
 def home(request):
     return render(request, 'home.html')
@@ -32,3 +34,32 @@ class CarDeleteView(DeleteView):
     model = Car
     template_name = 'car_confirm_delete.html'
     success_url = reverse_lazy('car_list')
+
+
+class ServiceListView(ListView):
+    model = ServiceRecord
+    template_name = 'service_list.html'
+    context_object_name = 'services'
+
+
+class ServiceDetailView(DetailView):
+    model = ServiceRecord
+    template_name = 'service_detail.html'
+
+
+class ServiceCreateView(CreateView):
+    model = ServiceRecord
+    fields = ['car', 'date', 'description', 'cost']
+    template_name = 'service_form.html'
+
+
+class ServiceUpdateView(UpdateView):
+    model = ServiceRecord
+    fields = ['car', 'date', 'description', 'cost']
+    template_name = 'service_form.html'
+
+
+class ServiceDeleteView(DeleteView):
+    model = ServiceRecord
+    template_name = 'service_confirm_delete.html'
+    success_url = reverse_lazy('service_list')
