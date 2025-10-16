@@ -9,9 +9,19 @@
 <body>
     <header>
         <nav>
-            <a href="{% url 'home' %}">Home</a> |
+           
+            {% if user.is_authenticated %}
             <a href="{% url 'car_list' %}">All Cars</a> |
             <a href="{% url 'car_create' %}">Add Car</a>
+             <form id="logout-form" method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit">Log out</button>
+    </form>
+  </li>
+             {% else %}
+             <a href="{% url 'home' %}">Home</a>
+             <li><a href="{% url 'signup' %}">Sign Up</a></li>
+             {% endif %}
         </nav>
     </header>
 
